@@ -38,9 +38,11 @@ async def comets(ctx, mag=None):
     URL = URL1 + mag + URL2
     data = json_to_obj(requests.get(URL).text)
 
-    answer = '**Comet name**, **Current magnitude**, **Peak magnitude**, **Peak magnitude date**\n'
-    for obj in data():
-        line = obj.fullname + ', ' + obj.current_mag + ', ' + obj.peak_magnitude + ', ' + obj.peak_magnitude_date + '\n'
+    answer = '**Comet name**, **Current magnitude**, **Peak magnitude**, **Peak magnitude date**\n\n'
+    for obj in data.objects:
+        line = obj.fullname + ', ' + obj.current_mag + ', ' + obj.peak_mag + ', ' + obj.peak_mag_date + '\n'
         answer += line
+    
+    await ctx.send(answer)
 
 client.run('MTQ3NjY5MTg3MjcyNTM0MDM3MQ.GP4HWA.t3vEoGqv5IIAt0PNX66U53DZFma9jZmuzO0gc4')
