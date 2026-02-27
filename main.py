@@ -1,9 +1,6 @@
 import requests
-import time
 import json
-from rich import print
 from datetime import datetime
-from types import SimpleNamespace
 from os import getenv
 from dotenv import load_dotenv
 
@@ -17,20 +14,7 @@ MAG = '12' # filter comets by max current magnitude
 URL = URL1 + MAG + URL2
 CURRENT_DATE = datetime.today().strftime('%Y-%m-%d')
 
-# def json_to_obj(json_str: str) -> object:
-#     return json.loads(json_str, object_hook=lambda d: SimpleNamespace(**d))
-
-
-# data = json_to_obj(requests.get(URL).text)
-
-# answer = '**Comet name**, **Current magnitude**, **Peak magnitude**, **Peak magnitude date**\n\n'
-# for obj in data.objects:
-#     line = obj.fullname + ', ' + obj.current_mag + ', ' + obj.peak_mag + ', ' + obj.peak_mag_date + '\n'
-#     answer += line
-
-data = {
-    'content': 'test',
-}
+data = requests.get(URL).text
 
 response = requests.post(WEBHOOK, json=data)
 print(response.status_code)
