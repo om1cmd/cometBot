@@ -1,2 +1,2 @@
 ## CometBot
-This is a discord bot that will send notifications and information about new comets visible to the naked eye or a basic camera into my discord server. This will be achieved by reading data from COBS database since they conveniently provide an API.
+This script will send notifications and information about new comets visible to the naked eye or a basic camera into my discord server via webhooks. This will be achieved by reading data from COBS database since they conveniently provide an API. Script is executed every week by cron.
