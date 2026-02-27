@@ -31,13 +31,13 @@ w_peakMag = len('Peak mag') + padd
 w_peakMagDate = len('Peak mag date') + padd
 
 # build header and separator
-header = f'|{'Full comet name':<{w_fullname}}|{'Current mag':<{w_currMag}}|{'Peak mag':<{w_peakMag}}|{'Peak mag date':<{w_peakMagDate}}|'
+header = f'|{'Full comet name':^{w_fullname}}|{'Current mag':^{w_currMag}}|{'Peak mag':^{w_peakMag}}|{'Peak mag date':^{w_peakMagDate}}|'
 separator = '|' + '-'*w_fullname + '|' + '-'*w_currMag + '|' + '-'*w_peakMag + '|' + '-'*w_peakMagDate + '|'
 
 # build rows
 rows = []
 for a, b, c, d in zip(fullnames, currMags, peakMags, peakMagDates):
-    rows.append(f'|{a:<{w_fullname}}|{b:<{w_currMag}}|{c:<{w_peakMag}}|{d:<{w_peakMagDate}}|')
+    rows.append(f'|{a:^{w_fullname}}|{b:^{w_currMag}}|{c:^{w_peakMag}}|{d:^{w_peakMagDate}}|')
 
 table = '\n'.join(['```', header, separator] + rows + ['```']) # put all elements into one list and join them with newline characters
 
