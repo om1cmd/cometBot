@@ -18,19 +18,20 @@ data = requests.get(URL).json()
 comets = data['objects'] # returns a list of dicts with comet info
 
 # put each column into a separate list
-fullnames = [i['name'] for i in comets]
+fullnames = [i['fullname'] for i in comets]
 currMags = [i['current_mag'] for i in comets]
 peakMags = [i['peak_mag'] for i in comets]
 peakMagDates = [i['peak_mag_date'] for i in comets]
 
 # find length of each colums
-w_fullname = max(len('Full name'), max(len(i) for i in fullnames)) + 2
-w_currMag = len('Current magnitude') + 2
-w_peakMag = len('Peak magnitude') + 2
-w_peakMagDate = len('Peak magnitude date') + 2
+padd = 2
+w_fullname = max(len('Full comet name'), max(len(i) for i in fullnames)) + padd
+w_currMag = len('Current mag') + padd
+w_peakMag = len('Peak mag') + padd
+w_peakMagDate = len('Peak mag date') + padd
 
 # build header and separator
-header = f'| {'Full name':<{w_fullname}} | {'Current magnitude':<{w_currMag}} | {'Peak magnitude':<{w_peakMag}} | {'Peak magnitude date':<{w_peakMagDate}} |'
+header = f'|{'Full comet name':<{w_fullname}}|{'Current mag':<{w_currMag}}|{'Peak mag':<{w_peakMag}}|{'Peak mag date':<{w_peakMagDate}}|'
 separator = '|' + '-'*w_fullname + '|' + '-'*w_currMag + '|' + '-'*w_peakMag + '|' + '-'*w_peakMagDate + '|'
 
 # build rows
