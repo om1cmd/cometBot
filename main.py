@@ -1,6 +1,5 @@
 import requests
-import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from os import getenv
 from dotenv import load_dotenv
 
@@ -12,16 +11,27 @@ URL1 = 'https://cobs.si/api/comet_list.api?cur-mag='
 URL2 = '&page=1'
 MAG = '12' # filter comets by max current magnitude
 URL = URL1 + MAG + URL2
-CURRENT_DATE = datetime.today().strftime('%Y-%m-%d')
 
 data = requests.get(URL).json()
 comets = data['objects'] # returns a list of dicts with comet info
 
+########## filter comets by peak_mag_date ##########
+
+oneWeekAgo = datetime.today() - timedelta(days=7)
+
+filteredComets = []
+for comet in comets:
+    peak_mag_date = datetime.strptime(comet['peak_mag_date'], '%Y-%m-%d')
+    if peak_mag_date >= oneWeekAgo:
+        filteredComets.append(comet)
+
+########## generate table in a code block ##########
+
 # put each column into a separate list
-fullnames = [i['fullname'] for i in comets]
-currMags = [i['current_mag'] for i in comets]
-peakMags = [i['peak_mag'] for i in comets]
-peakMagDates = [i['peak_mag_date'] for i in comets]
+fullnames = [i['fullname'] for i in filteredComets]
+currMags = [i['current_mag'] for i in filteredComets]
+peakMags = [i['peak_mag'] for i in filteredComets]
+peakMagDates = [i['peak_mag_date'] for i in filteredComets]
 
 # find length of each colums
 padd = 2
