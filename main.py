@@ -13,15 +13,14 @@ MAG1 = '15' # filter comets by max current magnitude
 MAG2 = '10'
 URL = URL1 + MAG1 + URL2
 TODAY = datetime.today().strftime('%Y-%m-%d')
-
-data = requests.get(URL).json()
-comets = data['objects'] # returns a list of dicts with comet info
+DATA = requests.get(URL).json()
+COMETS = DATA['objects'] # returns a list of dicts with comet info
 
 # filter comets by peak_mag_date
 oneWeekAgo = datetime.today() - timedelta(days=7)
 
 filteredComets = []
-for comet in comets:
+for comet in COMETS:
     peak_mag_date = datetime.strptime(comet['peak_mag_date'], '%Y-%m-%d')
     peak_mag = comet['peak_mag']
     if peak_mag_date >= oneWeekAgo and peak_mag < MAG2:
@@ -30,7 +29,7 @@ for comet in comets:
 #sort comets by peak_mag_date
 sortedComets = sorted(filteredComets, key=lambda comet: datetime.strptime(comet['peak_mag_date'], '%Y-%m-%d'), reverse=False)
 
-def table(sortedComets=sortedComets):
+def genTable(sortedComets=sortedComets):
     # put each column into a separate list
     fullnames = [i['fullname'] for i in sortedComets]
     currMags = [i['current_mag'] for i in sortedComets]
@@ -56,7 +55,7 @@ def table(sortedComets=sortedComets):
     table = '\n'.join(['```', header, separator] + rows + ['```']) # put all elements into one list and join them with newline characters
     return table
 
-def embed(sortedComets=sortedComets):
+def genEmbeds(sortedComets=sortedComets):
     embeds = []
 
     def buildEmbed(comet):
@@ -79,9 +78,9 @@ def embed(sortedComets=sortedComets):
 title = f'# Comet report from {TODAY}\n'
 subtitle = f'### Showing comets with current mag at least {MAG1} and peak mag at most {MAG2}\n'
 vspace = '\n### Same information in embeds for better viewing on mobile\n'
-content = title + subtitle + table() + vspace
+content = title + subtitle + genTable() + vspace
 
-embeds = embed()
+embeds = genEmbeds()
 payload = {'content': content, 'embeds': embeds}
 
 response = requests.post(WEBHOOK, json=payload)
