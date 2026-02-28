@@ -7,3 +7,6 @@ CometBot requests data of all comets that have current magnitude at least 15 (va
 ### How to use?
 - Put your webhook url into a .env file (contents of .env: `'WEBHOOK'='your webhook url'`).
 - Set up a cron job to periodically run main.py
+
+### Example report:
+![Here should be a picture of example output](./report.png)
