@@ -17,7 +17,7 @@ DATA = requests.get(URL).json()
 COMETS = DATA['objects'] # returns a list of dicts with comet info
 
 # filter comets by peak_mag_date
-oneWeekAgo = datetime.today() - timedelta(days=7)
+oneWeekAgo = datetime.today() - timedelta(days=14)
 
 filteredComets = []
 for comet in COMETS:
