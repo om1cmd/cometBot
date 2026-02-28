@@ -62,7 +62,7 @@ def embed(sortedComets=sortedComets):
     def buildEmbed(comet):
         embed = {
             'title': comet['fullname'],
-            'color': 0x33eeff,
+            'color': 0x33ddff,
             'fields': [
                 {'name': 'Current mag', 'value': comet['current_mag'], 'inline': True},
                 {'name': 'Peak mag', 'value': comet['peak_mag'], 'inline': True},
@@ -78,7 +78,7 @@ def embed(sortedComets=sortedComets):
 
 title = f'# Comet report from {TODAY}\n'
 subtitle = f'### Showing comets with current mag at least {MAG1} and peak mag at most {MAG2}\n'
-vspace = '\n### Same information in embeds for better rendering on mobile\n'
+vspace = '\n### Same information in embeds for better viewing on mobile\n'
 content = title + subtitle + table() + vspace
 
 embeds = embed()
