@@ -75,6 +75,7 @@ def genEmbeds(sortedComets=sortedComets):
     
     return embeds
 
+# output text
 title = f'# Comet report from {TODAY}\n'
 subtitle = f'### Showing comets with current mag at least {MAG1} and peak mag at most {MAG2}\n'
 vspace = '\n### Same information in embeds for better viewing on mobile\n'
