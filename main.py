@@ -10,7 +10,7 @@ WEBHOOK = getenv('WEBHOOK')
 URL1 = 'https://cobs.si/api/comet_list.api?cur-mag='
 URL2 = '&page=1'
 MAG1 = '15' # current mag limit
-MAG2 = '10' # peak mag limit
+MAG2 = 10 # peak mag limit
 URL = URL1 + MAG1 + URL2
 TODAY = datetime.today().strftime('%Y-%m-%d')
 DATA = requests.get(URL).json()
@@ -23,7 +23,7 @@ filteredComets = []
 for comet in COMETS:
     peak_mag_date = datetime.strptime(comet['peak_mag_date'], '%Y-%m-%d')
     peak_mag = comet['peak_mag']
-    if peak_mag_date >= oneWeekAgo and peak_mag < MAG2:
+    if peak_mag_date >= oneWeekAgo and float(peak_mag) < MAG2:
         filteredComets.append(comet)
 
 #sort comets by peak_mag_date
