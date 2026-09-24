@@ -72,17 +72,26 @@ def genEmbeds(sortedComets=sortedComets):
 
     for comet in sortedComets:
         embeds.append(buildEmbed(comet))
-    
+
     return embeds
 
-# output text
 title = f'# Comet report from {TODAY}\n'
-subtitle = f'### Showing comets with current mag at least {MAG1} and peak mag at most {MAG2}\n'
-vspace = '\n### Same information in embeds for better viewing on mobile\n'
-content = title + subtitle + genTable() + vspace
 
-embeds = genEmbeds()
-payload = {'content': content, 'embeds': embeds}
+if not filteredComets:
+    subtitle = f'### No comets with current mag at least {MAG1} and peak mag at most {MAG2}\n'
+    content = title + subtitle
+    payload = {'content': content}
 
-response = requests.post(WEBHOOK, json=payload)
-print(response.status_code)
+    response = requests.post(WEBHOOK, json=payload)
+else:
+    # output text
+    subtitle = f'### Showing comets with current mag at least {MAG1} and peak mag at most {MAG2}\n'
+    vspace = '\n### Same information in embeds for better viewing on mobile\n'
+    content = title + subtitle + genTable() + vspace
+
+    embeds = genEmbeds()
+    payload = {'content': content, 'embeds': embeds}
+
+    response = requests.post(WEBHOOK, json=payload)
+
+    print(response.status_code)
